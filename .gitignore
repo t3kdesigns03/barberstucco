@@ -8,3 +8,6 @@ next-env.d.ts
 .netlify/
 
 .scratch/
+
+# Never commit partial browser downloads
+*.crdownload
