@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --teal: #129aa3;
+    --teal-bright: #1ec8d0;
+    --teal-mid: #0e8087;
+    --teal-deep: #0b6e74;
+    --ink: #06191b;
+    --paper: #f7fbfc;
+    --white: #ffffff;
+    --stone: #e6eeef;
+    --text: #122326;
+    --muted: #4a5e62;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--text);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), Georgia, serif;
+    color: var(--ink);
+    font-weight: 550;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--teal-bright);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--teal-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .dark-band :focus-visible {
+    outline-color: var(--teal-bright);
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Eyebrow / kicker text above section headings. */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+
+  .dark-band .eyebrow {
+    color: var(--teal-bright);
+  }
+
+  .rule-glow {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--teal-bright),
+      transparent
+    );
+    height: 1px;
+  }
+
+  /* Stand-in for project photography that has not been downloaded yet.
+     Reads as a stucco wall rather than a broken image icon. */
+  .photo-fallback {
+    background-color: #dfe9ea;
+    background-image:
+      radial-gradient(
+        circle at 20% 25%,
+        rgba(255, 255, 255, 0.9) 0,
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 78% 70%,
+        rgba(18, 154, 163, 0.16) 0,
+        transparent 55%
+      ),
+      repeating-linear-gradient(
+        135deg,
+        rgba(6, 25, 27, 0.045) 0 2px,
+        transparent 2px 5px
+      ),
+      repeating-linear-gradient(
+        45deg,
+        rgba(6, 25, 27, 0.035) 0 2px,
+        transparent 2px 6px
+      );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hairline top edge used on dark bands. */
+  .edge-glow {
+    box-shadow: inset 0 1px 0 rgba(30, 200, 208, 0.35);
+  }
+}
