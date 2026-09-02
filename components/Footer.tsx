@@ -30,20 +30,20 @@ export default function Footer() {
 
           <div>
             <h2 className="eyebrow">Get in touch</h2>
-            <address className="mt-4 not-italic leading-relaxed">
+            <address className="mt-4 flex flex-col items-start gap-3 not-italic leading-relaxed">
               <a
                 href={BUSINESS.phoneHref}
-                className="inline-block py-1.5 text-xl font-semibold text-white transition-colors hover:text-teal-bright"
+                className="block w-fit py-1 text-xl font-semibold text-white transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.phoneDisplay}
               </a>
               <a
                 href={BUSINESS.emailHref}
-                className="inline-block break-all py-1.5 transition-colors hover:text-teal-bright"
+                className="block w-fit max-w-full break-all py-1 text-white/85 transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.email}
               </a>
-              <p className="mt-4 text-white/60">
+              <p className="mt-1 text-white/60">
                 {BUSINESS.street}
                 <br />
                 {BUSINESS.city}, {BUSINESS.state} {BUSINESS.zip}

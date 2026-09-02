@@ -1,6 +1,6 @@
 import { BUSINESS } from "@/src/data/business";
+import { SITE_URL } from "@/src/data/site";
 
-const SITE_URL = "https://www.barberstucco.com";
 
 const data = {
   "@context": "https://schema.org",

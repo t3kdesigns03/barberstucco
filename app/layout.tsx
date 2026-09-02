@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import { SITE_URL } from "@/src/data/site";
 import "./globals.css";
 
 const display = localFont({
@@ -28,7 +29,6 @@ const sans = localFont({
   ],
 });
 
-const SITE_URL = "https://www.barberstucco.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
