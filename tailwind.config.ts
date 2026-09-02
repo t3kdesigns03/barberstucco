@@ -25,7 +25,7 @@ const config: Config = {
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
-      screens: { xs: "420px" },
+      screens: { xs: "360px" },
       maxWidth: {
         content: "76rem",
         prose: "42rem",

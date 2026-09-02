@@ -33,13 +33,13 @@ export default function Footer() {
             <address className="mt-4 not-italic leading-relaxed">
               <a
                 href={BUSINESS.phoneHref}
-                className="block text-xl font-semibold text-white transition-colors hover:text-teal-bright"
+                className="inline-block py-1.5 text-xl font-semibold text-white transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.phoneDisplay}
               </a>
               <a
                 href={BUSINESS.emailHref}
-                className="mt-1 block break-all transition-colors hover:text-teal-bright"
+                className="inline-block break-all py-1.5 transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.email}
               </a>
@@ -53,11 +53,11 @@ export default function Footer() {
 
           <div>
             <h2 className="eyebrow">Site</h2>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-2">
               <li>
                 <Link
                   href="/"
-                  className="transition-colors hover:text-teal-bright"
+                  className="inline-block py-2.5 transition-colors hover:text-teal-bright"
                 >
                   Home
                 </Link>
@@ -66,7 +66,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="transition-colors hover:text-teal-bright"
+                    className="inline-block py-2.5 transition-colors hover:text-teal-bright"
                   >
                     {item.label}
                   </Link>

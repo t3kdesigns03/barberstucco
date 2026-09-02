@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Logo from "./Logo";
+import Logo, { LogoMark } from "./Logo";
 import { BUSINESS, NAV } from "@/src/data/business";
 
 function PhoneIcon({ className = "" }: { className?: string }) {
@@ -73,10 +73,12 @@ export default function Header() {
         <div className="container-page flex h-[68px] items-center justify-between gap-2 sm:gap-4 md:h-[76px]">
           <Link
             href="/"
-            className="shrink-0 rounded-md"
+            className="-my-2 shrink-0 rounded-md py-2"
             aria-label="Barber Stucco — home"
           >
-            <Logo className="h-7 w-auto sm:h-9 md:h-10" />
+            {/* Below 360px the wordmark would push the phone button off-screen. */}
+            <LogoMark className="h-8 w-8 xs:hidden" />
+            <Logo className="hidden h-7 w-auto xs:block sm:h-9 md:h-10" />
           </Link>
 
           <nav
@@ -107,7 +109,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href={BUSINESS.phoneHref}
-              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-teal-deep px-3 py-2.5 text-[0.78rem] font-semibold text-white shadow-[0_10px_26px_-14px_rgba(11,110,116,.9)] transition-all hover:-translate-y-0.5 hover:bg-teal-mid sm:gap-2 sm:px-5 sm:text-sm"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-teal-deep px-3 py-3 text-[0.78rem] font-semibold text-white shadow-[0_10px_26px_-14px_rgba(11,110,116,.9)] transition-all hover:-translate-y-0.5 hover:bg-teal-mid sm:gap-2 sm:px-5 sm:text-sm"
             >
               <PhoneIcon className="h-4 w-4 shrink-0" />
               <span className="sr-only">Call</span>

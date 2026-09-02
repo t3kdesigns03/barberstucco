@@ -77,7 +77,7 @@ export default function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`Project photo ${index + 1} of ${images.length}`}
-      className="dark-band fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4 animate-fade-in"
+      className="dark-band fixed inset-0 z-[100] flex items-center justify-center bg-ink p-4 animate-fade-in"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -115,10 +115,14 @@ export default function Lightbox({
           width={1600}
           height={1200}
           priority
-          className="max-h-[68vh] w-full rounded-2xl object-contain"
+          className="max-h-[58vh] w-full rounded-2xl object-contain sm:max-h-[68vh]"
         />
 
-        <div className="flex items-center justify-between gap-4">
+        <p className="text-center text-sm leading-relaxed text-white/75">
+          {image.alt}
+        </p>
+
+        <div className="flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => go(-1)}
@@ -138,10 +142,6 @@ export default function Lightbox({
             </svg>
             Previous
           </button>
-
-          <p className="hidden max-w-md text-center text-sm text-white/70 sm:block">
-            {image.alt}
-          </p>
 
           <button
             type="button"

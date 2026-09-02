@@ -67,7 +67,7 @@ export default function ContactPage() {
                 <dd className="mt-2">
                   <a
                     href={BUSINESS.emailHref}
-                    className="break-all text-lg font-medium text-ink transition-colors hover:text-teal-deep"
+                    className="-my-1 inline-block break-all py-1 text-lg font-medium text-ink transition-colors hover:text-teal-deep"
                   >
                     {BUSINESS.email}
                   </a>
@@ -122,7 +122,7 @@ export default function ContactPage() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4 hover:text-ink"
+            className="-my-2 inline-block py-2 text-sm font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4 hover:text-ink"
           >
             Get directions
           </a>
