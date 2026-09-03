@@ -1,8 +1,5 @@
 import {
-  ARCH_PATH,
-  HEART_PATH,
-  HEART_TRANSFORM,
-  HOUSE_PATH,
+  MARK_LAYERS,
   WORDMARK_HEIGHT,
   WORDMARK_PATH,
   WORDMARK_TRANSFORM,
@@ -27,11 +24,14 @@ function Mark({
 }) {
   return (
     <g transform={transform}>
-      <path d={HOUSE_PATH} fill={shell} />
-      <path d={ARCH_PATH} fill={accent} />
-      <g transform={HEART_TRANSFORM}>
-        <path d={HEART_PATH} fill={accent} />
-      </g>
+      {MARK_LAYERS.map((l, i) => (
+        <path
+          key={i}
+          d={l.d}
+          transform={l.transform}
+          fill={l.role === "shell" ? shell : accent}
+        />
+      ))}
     </g>
   );
 }

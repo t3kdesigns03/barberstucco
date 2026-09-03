@@ -9,6 +9,8 @@ export type GalleryImage = {
   src: string;
   alt: string;
   category: GalleryCategory;
+  /** object-position override for the 4:3 grid crop, when centre clips the subject. */
+  objectPosition?: string;
 };
 
 export const CATEGORY_LABELS: Record<GalleryCategory, string> = {
@@ -130,11 +132,6 @@ export const gallery: GalleryImage[] = [
     category: "commercial",
   },
   {
-    src: "/images/gallery/img_0813.jpg",
-    alt: "Automotive service building with arched window openings in stucco",
-    category: "commercial",
-  },
-  {
     src: "/images/gallery/img_0817.jpg",
     alt: "Two-story office building in snow, EIFS facade with teal glazing",
     category: "commercial",
@@ -207,18 +204,8 @@ export const gallery: GalleryImage[] = [
     category: "details",
   },
   {
-    src: "/images/gallery/img_1385_op_665x498.jpg",
-    alt: "Reveal detail at a door head and jamb",
-    category: "details",
-  },
-  {
     src: "/images/gallery/img_1386.jpg",
     alt: "Layered cornice banding above a window head",
-    category: "details",
-  },
-  {
-    src: "/images/gallery/img_1390.jpg",
-    alt: "Sill and apron detail below a window opening",
     category: "details",
   },
   {
@@ -304,11 +291,6 @@ export const gallery: GalleryImage[] = [
     category: "texture",
   },
   {
-    src: "/images/gallery/img_1392.jpg",
-    alt: "Close-up of a heavy troweled texture beneath a trim band",
-    category: "texture",
-  },
-  {
     src: "/images/gallery/img_1410_op_665x498.jpg",
     alt: "Close-up of a mottled limestone-look ArcusStone finish",
     category: "texture",
@@ -344,10 +326,10 @@ const find = (src: string) => gallery.find((g) => g.src === src)!;
 export const HERO_IMAGE = find("/images/gallery/img_1406_op_665x498.jpg");
 
 export const FEATURED: GalleryImage[] = [
-  "/images/gallery/img_1357.jpg",
   "/images/gallery/img_0442_op_665x498.jpg",
   "/images/gallery/img_1395.jpg",
   "/images/gallery/img_0723_op_665x548.jpg",
-  "/images/gallery/img_0817.jpg",
+  "/images/gallery/img_1358_op_665x498.jpg",
   "/images/gallery/img_1408.jpg",
+  "/images/gallery/img_1275.jpg",
 ].map(find);

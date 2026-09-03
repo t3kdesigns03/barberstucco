@@ -2,16 +2,12 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
+import Reveal from "@/components/Reveal";
 import { LogoMark } from "@/components/Logo";
 import { BUSINESS, CREDENTIALS, SERVICES, TESTIMONIALS } from "@/src/data/business";
 import { FEATURED, HERO_IMAGE } from "@/src/data/gallery";
 
-const HOME_SERVICES = ["dryvit", "hard-coat-stucco", "arcusstone"] as const;
-
 export default function HomePage() {
-  const featured = SERVICES.filter((s) =>
-    (HOME_SERVICES as readonly string[]).includes(s.slug),
-  );
   const quote = TESTIMONIALS[0];
 
   return (
@@ -65,8 +61,9 @@ export default function HomePage() {
           </div>
 
           <div className="relative animate-fade-in">
-            <div className="absolute -right-8 -top-8 hidden h-40 w-40 rounded-full bg-teal-bright/20 blur-3xl lg:block" />
-            <div className="relative overflow-hidden rounded-[28px] bg-stone shadow-lift">
+            <div className="absolute -right-10 -top-10 hidden h-48 w-48 rounded-full bg-teal-bright/25 blur-3xl lg:block" />
+            <div className="absolute -bottom-12 -left-10 hidden h-44 w-44 rounded-full bg-teal/15 blur-3xl lg:block" />
+            <div className="relative overflow-hidden rounded-[28px] bg-stone shadow-lift ring-1 ring-inset ring-ink/10">
               <Photo
                 src={HERO_IMAGE.src}
                 alt={HERO_IMAGE.alt}
@@ -120,9 +117,9 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------------ services */}
       <section className="container-page py-20 md:py-28">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="eyebrow">What we install</p>
+            <p className="eyebrow eyebrow-tick">What we install</p>
             <h2 className="mt-3 font-display text-4xl leading-tight tracking-tightest sm:text-5xl">
               Five systems. One crew that knows where water goes.
             </h2>
@@ -130,11 +127,11 @@ export default function HomePage() {
           <Button href="/services/" variant="secondary" className="shrink-0 whitespace-nowrap">
             All five systems
           </Button>
-        </div>
+        </Reveal>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {featured.map((s) => (
-            <li key={s.slug}>
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((s, i) => (
+            <Reveal as="li" key={s.slug} delay={i * 60}>
               <Link
                 href={`/services/#${s.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-[26px] bg-white shadow-card ring-1 ring-stone transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift hover:ring-teal/40"
@@ -171,35 +168,17 @@ export default function HomePage() {
                   </span>
                 </div>
               </Link>
-            </li>
+            </Reveal>
           ))}
         </ul>
-
-        <p className="mt-8 text-[0.95rem] text-muted">
-          Also:{" "}
-          <Link
-            href="/services/#eifs"
-            className="font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4"
-          >
-            EIFS
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/services/#synthetic-stone"
-            className="font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4"
-          >
-            synthetic stone
-          </Link>
-          .
-        </p>
       </section>
 
       {/* ------------------------------------------------------- featured work */}
       <section className="bg-white py-20 md:py-28">
         <div className="container-page">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="eyebrow">Recent work</p>
+              <p className="eyebrow eyebrow-tick">Recent work</p>
               <h2 className="mt-3 font-display text-4xl leading-tight tracking-tightest sm:text-5xl">
                 Houses, storefronts, and the details underneath both.
               </h2>
@@ -207,13 +186,13 @@ export default function HomePage() {
             <Button href="/gallery/" variant="secondary" className="shrink-0 whitespace-nowrap">
               Open the gallery
             </Button>
-          </div>
+          </Reveal>
 
           <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED.map((img) => (
-              <li key={img.src}>
+            {FEATURED.map((img, i) => (
+              <Reveal as="li" key={img.src} delay={i * 60}>
                 <ProjectCard image={img} className="h-full" />
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
@@ -221,7 +200,7 @@ export default function HomePage() {
 
       {/* ---------------------------------------------------------- testimonial */}
       <section className="container-page py-20 md:py-28">
-        <figure className="mx-auto max-w-4xl text-center">
+        <Reveal as="figure" className="mx-auto max-w-4xl text-center">
           <svg
             viewBox="0 0 24 24"
             className="mx-auto h-10 w-10 text-teal-bright"
@@ -242,11 +221,11 @@ export default function HomePage() {
               Read both letters and our trade references
             </Button>
           </div>
-        </figure>
+        </Reveal>
       </section>
 
       {/* ------------------------------------------------------------- CTA band */}
-      <section className="dark-band bg-ink text-white">
+      <section className="dark-band stucco-dark bg-ink text-white">
         <div className="rule-glow" aria-hidden="true" />
         <div className="container-page grid gap-10 py-16 md:grid-cols-[1.2fr_1fr] md:items-center md:py-20">
           <div>

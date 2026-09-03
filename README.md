@@ -90,6 +90,27 @@ build time.
    → `barberstucco.com`, then update the DNS records Netlify shows you at
    whoever hosts the domain today. HTTPS is issued automatically.
 
+### Canonical domain — one switch
+
+Every absolute URL (page canonicals, `og:url`, JSON-LD `url`, `robots` host,
+`sitemap.xml`) comes from a single value in `src/data/site.ts`, which reads the
+`NEXT_PUBLIC_SITE_URL` environment variable and falls back to
+`https://www.barberstucco.com`.
+
+- **While previewing** on `barberstucco.t3kdesigns.app`, the fallback is
+  harmless — search engines are told the canonical home is barberstucco.com,
+  which is where you're headed.
+- **At DNS cutover**, nothing in the code needs to change. If you ever need a
+  different canonical host, set it in **Netlify → Site configuration →
+  Environment variables**:
+
+  ```
+  NEXT_PUBLIC_SITE_URL = https://www.barberstucco.com
+  ```
+
+  It's read at build time, so trigger a redeploy after changing it. Locally you
+  can drop the same line in a `.env.local` file.
+
 ### The contact form
 
 `/contact` posts to **Netlify Forms** — no backend needed. Netlify picks up

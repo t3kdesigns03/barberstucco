@@ -148,3 +148,72 @@
     box-shadow: inset 0 1px 0 rgba(30, 200, 208, 0.35);
   }
 }
+
+@layer components {
+  /* Eyebrow gets a short teal tick for a little more presence. */
+  .eyebrow-tick {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .eyebrow-tick::before {
+    content: "";
+    width: 1.6rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--teal);
+  }
+  .dark-band .eyebrow-tick::before {
+    background: var(--teal-bright);
+  }
+
+  /* Faint troweled-stucco texture for dark bands — depth without a gradient. */
+  .stucco-dark {
+    position: relative;
+    isolation: isolate;
+  }
+  .stucco-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      radial-gradient(
+        120% 90% at 15% 0%,
+        rgba(30, 200, 208, 0.1) 0,
+        transparent 55%
+      ),
+      repeating-linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.02) 0 2px,
+        transparent 2px 6px
+      );
+  }
+}
+
+@layer utilities {
+  /* Scroll-reveal. Gated on .reveal-ready (set by the Reveal component) so a
+     no-JS render shows everything, and reduced-motion disables it entirely. */
+  .reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-ready .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-ready .reveal,
+    .reveal-ready .reveal.is-in {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}

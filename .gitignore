@@ -11,3 +11,6 @@ next-env.d.ts
 
 # Never commit partial browser downloads
 *.crdownload
+
+# local build-verification scratch
+.verify/

@@ -13,7 +13,7 @@ export default function TestimonialsPage() {
   return (
     <>
       <section className="container-page pb-4 pt-14 md:pt-20">
-        <p className="eyebrow">Trust</p>
+        <p className="eyebrow eyebrow-tick">Trust</p>
         <h1 className="mt-3 max-w-3xl font-display text-[2.6rem] leading-[1.05] tracking-tightest sm:text-6xl">
           General contractors call us back. That&rsquo;s the whole review.
         </h1>
@@ -25,38 +25,37 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="container-page py-12 md:py-16">
-        <ul className="grid gap-6 lg:grid-cols-2">
+        <div className="mx-auto flex max-w-3xl flex-col gap-8 md:gap-10">
           {TESTIMONIALS.map((t) => (
-            <li key={t.name}>
-              <figure className="flex h-full flex-col rounded-[28px] bg-white p-8 shadow-card ring-1 ring-stone sm:p-10">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-8 w-8 text-teal-bright"
-                  aria-hidden="true"
-                  fill="currentColor"
-                >
-                  <path d="M9.5 5C6.4 6.6 4.5 9.5 4.5 13v6h7v-7H8c0-2.3 1-3.9 3.1-5L9.5 5Zm10 0c-3.1 1.6-5 4.5-5 8v6h7v-7H18c0-2.3 1-3.9 3.1-5L19.5 5Z" />
-                </svg>
-                <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed text-body">
-                  <p>{t.quote}</p>
-                </blockquote>
-                <figcaption className="mt-7 border-t border-stone pt-5">
-                  <span className="block font-display text-xl tracking-tight text-ink">
-                    {t.name}
-                  </span>
-                  <span className="mt-1 block text-sm text-muted">
-                    {t.role}
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
+            <figure
+              key={t.name}
+              className="rounded-[28px] bg-white p-8 shadow-card ring-1 ring-stone sm:p-12"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-9 w-9 text-teal-bright"
+                aria-hidden="true"
+                fill="currentColor"
+              >
+                <path d="M9.5 5C6.4 6.6 4.5 9.5 4.5 13v6h7v-7H8c0-2.3 1-3.9 3.1-5L9.5 5Zm10 0c-3.1 1.6-5 4.5-5 8v6h7v-7H18c0-2.3 1-3.9 3.1-5L19.5 5Z" />
+              </svg>
+              <blockquote className="mt-6 text-lg leading-loose text-body sm:text-xl sm:leading-loose">
+                <p>{t.quote}</p>
+              </blockquote>
+              <figcaption className="mt-8 border-t border-stone pt-6">
+                <span className="block font-display text-xl tracking-tight text-ink">
+                  {t.name}
+                </span>
+                <span className="mt-1 block text-sm text-muted">{t.role}</span>
+              </figcaption>
+            </figure>
           ))}
-        </ul>
+        </div>
       </section>
 
       <section className="bg-white py-20 md:py-24">
         <div className="container-page">
-          <p className="eyebrow">References</p>
+          <p className="eyebrow eyebrow-tick">References</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl leading-tight tracking-tightest sm:text-5xl">
             Trusted by builders &amp; inspectors.
           </h2>
@@ -65,23 +64,23 @@ export default function TestimonialsPage() {
             we have worked with and for. Call any of them.
           </p>
 
-          <ul className="mt-10 divide-y divide-stone rounded-[26px] bg-paper ring-1 ring-stone">
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {REFERENCES.map((r) => (
               <li key={r.name}>
-                <div className="flex flex-col gap-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+                <div className="flex h-full flex-col justify-between gap-5 rounded-[22px] bg-paper p-6 ring-1 ring-stone">
                   <div>
                     <p className="font-display text-xl tracking-tight text-ink">
                       {r.name}
                     </p>
-                    <p className="mt-0.5 text-sm text-muted">{r.company}</p>
+                    <p className="mt-1 text-sm text-muted">{r.company}</p>
                   </div>
                   <a
                     href={r.phoneHref}
-                    className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink ring-1 ring-inset ring-stone transition-colors hover:text-teal-deep hover:ring-teal"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink ring-1 ring-inset ring-stone transition-colors hover:text-teal-deep hover:ring-teal"
                   >
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-4 w-4 text-teal"
+                      className="h-4 w-4 shrink-0 text-teal"
                       aria-hidden="true"
                       fill="none"
                       stroke="currentColor"

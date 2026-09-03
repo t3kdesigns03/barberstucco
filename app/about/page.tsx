@@ -33,7 +33,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="container-page pb-4 pt-14 md:pt-20">
-        <p className="eyebrow">About</p>
+        <p className="eyebrow eyebrow-tick">About</p>
         <h1 className="mt-3 max-w-3xl font-display text-[2.6rem] leading-[1.05] tracking-tightest sm:text-6xl">
           A stucco company run by the person who still walks the wall.
         </h1>
@@ -100,7 +100,7 @@ export default function AboutPage() {
 
       <section className="bg-white py-20 md:py-28">
         <div className="container-page">
-          <p className="eyebrow">How we work</p>
+          <p className="eyebrow eyebrow-tick">How we work</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl leading-tight tracking-tightest sm:text-5xl">
             Four things that decide whether an exterior lasts.
           </h2>
@@ -125,9 +125,9 @@ export default function AboutPage() {
       </section>
 
       <section className="container-page py-20 md:py-24">
-        <div className="dark-band grid gap-8 rounded-[28px] bg-ink p-8 text-white sm:p-12 lg:grid-cols-3">
+        <div className="dark-band stucco-dark grid gap-8 rounded-[28px] bg-ink p-8 text-white sm:p-12 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <p className="eyebrow">Warranty &amp; coverage</p>
+            <p className="eyebrow eyebrow-tick">Warranty &amp; coverage</p>
             <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl">
               Insured, licensed, and on the hook for our own work.
             </h2>

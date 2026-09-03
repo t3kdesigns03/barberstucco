@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Barber Stucco">
   <g>
-    <path d="M32 6 L59 27 V55 Q59 59 55 59 H9 Q5 59 5 55 V27 Z" fill="#06191B"/>
-    <path d="M22 59 V44 A10 10 0 0 1 42 44 V59 Z" fill="#129AA3"/>
-    <g transform="translate(23.33 13.95) scale(0.7222 0.6215)"><path d="M12 21 C12 21 3 14.4 3 8.5 A5.5 5.5 0 0 1 12 5 A5.5 5.5 0 0 1 21 8.5 C21 14.4 12 21 12 21 Z" fill="#129AA3"/></g>
+    <path d="M32 6 L56 25 L56 55 L8 55 L8 25 Z" fill="#06191B"/>
+    <path d="M6 55 H58 V57.6 H6 Z" fill="#129AA3"/>
+    <path d="M24 50 V34 A8 8 0 0 1 40 34 V50 Z" fill="#129AA3"/>
+    <path d="M31 27 H33 V50 H31 Z" fill="#06191B"/>
+    <path d="M12 21 C12 21 3 14.4 3 8.5 A5.5 5.5 0 0 1 12 5 A5.5 5.5 0 0 1 21 8.5 C21 14.4 12 21 12 21 Z" fill="#129AA3" transform="translate(26 7.5) scale(0.5)"/>
   </g>
 </svg>

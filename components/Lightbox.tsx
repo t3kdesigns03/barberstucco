@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import Photo from "./Photo";
-import type { GalleryImage } from "@/src/data/gallery";
+import { CATEGORY_LABELS, type GalleryImage } from "@/src/data/gallery";
 
 type Props = {
   images: GalleryImage[];
@@ -22,6 +22,7 @@ export default function Lightbox({
   const closeRef = useRef<HTMLButtonElement>(null);
   const restoreTo = useRef<Element | null>(null);
 
+  const touchX = useRef<number | null>(null);
   const image = images[index];
   const go = useCallback(
     (delta: number) =>
@@ -33,9 +34,13 @@ export default function Lightbox({
     restoreTo.current = document.activeElement;
     closeRef.current?.focus();
     const prevOverflow = document.body.style.overflow;
+    const prevPad = document.body.style.paddingRight;
+    const sbw = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
+    if (sbw > 0) document.body.style.paddingRight = `${sbw}px`;
     return () => {
       document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPad;
       (restoreTo.current as HTMLElement | null)?.focus?.();
     };
   }, []);
@@ -108,17 +113,33 @@ export default function Lightbox({
           </button>
         </div>
 
-        <Photo
-          key={image.src}
-          src={image.src}
-          alt={image.alt}
-          width={1600}
-          height={1200}
-          priority
-          className="max-h-[58vh] w-full rounded-2xl object-contain sm:max-h-[68vh]"
-        />
+        <div
+          onTouchStart={(e) => {
+            touchX.current = e.changedTouches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            touchX.current = null;
+            if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1);
+          }}
+        >
+          <Photo
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            width={1600}
+            height={1200}
+            priority
+            className="max-h-[58vh] w-full rounded-2xl object-contain sm:max-h-[68vh]"
+          />
+        </div>
 
         <p className="text-center text-sm leading-relaxed text-white/75">
+          <span className="font-semibold uppercase tracking-[0.12em] text-teal-bright">
+            {CATEGORY_LABELS[image.category]}
+          </span>
+          <span className="px-1.5 text-white/40">·</span>
           {image.alt}
         </p>
 

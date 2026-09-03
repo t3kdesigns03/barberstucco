@@ -23,6 +23,7 @@ export default function ProjectCard({
         height={600}
         priority={priority}
         sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 92vw"
+        objectPosition={image.objectPosition}
         className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
       />
       <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/70 to-transparent p-4 pt-16">

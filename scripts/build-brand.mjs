@@ -1,11 +1,16 @@
 /**
- * Regenerates the Barber Stucco brand assets from the SVG mark geometry and
- * a Great Vibes (SIL OFL 1.1) outline conversion of the wordmark.
+ * Regenerates the Barber Stucco brand assets.
  *
- *   node scripts/build-brand.mjs /path/to/GreatVibes-Regular.ttf
+ *   node scripts/build-brand.mjs                       # mark change only
+ *   node scripts/build-brand.mjs /path/GreatVibes.ttf  # also rebuild wordmark
  *
- * The generated files are committed, so you only need to run this if the
- * mark or the wordmark text changes.
+ * The mark is a front-elevation facade: an ink silhouette with a pitched
+ * gable, a teal arched window (a stucco reveal, split into two lights by a
+ * mullion), a teal heart seated at the ridge, and a thin teal ground line.
+ * The script wordmark is real SVG outlines converted from Great Vibes
+ * (SIL Open Font License 1.1); it rarely changes, so when no TTF is passed the
+ * existing wordmark paths are read back from components/brand-paths.ts and
+ * only the mark + SVGs are regenerated. Generated files are committed.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -18,14 +23,26 @@ const INK = "#06191B";
 const TEAL = "#129AA3";
 const TEAL_BRIGHT = "#1EC8D0";
 
-/* ---------- the mark ---------------------------------------------------- */
-/* A geometric facade: pitched ink silhouette, a teal arched reveal cut to the
-   base, and the heart from the original mark seated in the gable.          */
-const HOUSE = "M32 6 L59 27 V55 Q59 59 55 59 H9 Q5 59 5 55 V27 Z";
-const ARCH = "M22 59 V44 A10 10 0 0 1 42 44 V59 Z";
+/* ---------- the mark (64x64) ------------------------------------------- *
+ * Front elevation, not a house icon: pitched facade, centred arched window
+ * with a mullion, heart at the ridge, teal ground line. role "shell" is the
+ * ink body (white when inverted); role "accent" is teal (teal-bright when
+ * inverted). Order matters — later layers paint over earlier ones.          */
 const HEART =
   "M12 21 C12 21 3 14.4 3 8.5 A5.5 5.5 0 0 1 12 5 A5.5 5.5 0 0 1 21 8.5 C21 14.4 12 21 12 21 Z";
-const HEART_T = "translate(23.33 13.95) scale(0.7222 0.6215)";
+
+const MARK_LAYERS = [
+  // facade silhouette with a gable roof
+  { role: "shell", d: "M32 6 L56 25 L56 55 L8 55 L8 25 Z" },
+  // thin ground line the building sits on
+  { role: "accent", d: "M6 55 H58 V57.6 H6 Z" },
+  // arched window (stucco reveal)
+  { role: "accent", d: "M24 50 V34 A8 8 0 0 1 40 34 V50 Z" },
+  // mullion splitting the window into two lights
+  { role: "shell", d: "M31 27 H33 V50 H31 Z" },
+  // heart at the ridge
+  { role: "accent", d: HEART, transform: "translate(26 7.5) scale(0.5)" },
+];
 
 /* ---------- wordmark ---------------------------------------------------- */
 function cmdsToD(cmds, dp = 2) {
@@ -52,7 +69,7 @@ function cmdsToD(cmds, dp = 2) {
   return out;
 }
 
-async function buildWordmark() {
+async function buildWordmarkFromTtf() {
   const opentype = (await import("opentype.js")).default;
   const font = opentype.parse(fs.readFileSync(TTF).buffer);
   const size = 200;
@@ -85,14 +102,32 @@ async function buildWordmark() {
   };
 }
 
-/* ---------- emit -------------------------------------------------------- */
-const markGroup = (ink, teal, extra = "") => `  <g${extra}>
-    <path d="${HOUSE}" fill="${ink}"/>
-    <path d="${ARCH}" fill="${teal}"/>
-    <g transform="${HEART_T}"><path d="${HEART}" fill="${teal}"/></g>
-  </g>`;
+function readWordmarkFromBrandPaths() {
+  const src = fs.readFileSync(path.join(ROOT, "components/brand-paths.ts"), "utf8");
+  const grab = (name, re) => {
+    const m = src.match(re);
+    if (!m) throw new Error(`could not read ${name} from brand-paths.ts (pass a TTF to rebuild it)`);
+    return m[1];
+  };
+  return {
+    d: JSON.parse(grab("WORDMARK_PATH", /WORDMARK_PATH = (".*?");/s)),
+    transform: JSON.parse(grab("WORDMARK_TRANSFORM", /WORDMARK_TRANSFORM = (".*?");/s)),
+    width: Number(grab("WORDMARK_WIDTH", /WORDMARK_WIDTH = ([\d.]+);/)),
+    height: Number(grab("WORDMARK_HEIGHT", /WORDMARK_HEIGHT = ([\d.]+);/)),
+  };
+}
 
-const w = await buildWordmark();
+const w = TTF ? await buildWordmarkFromTtf() : readWordmarkFromBrandPaths();
+
+/* ---------- emit -------------------------------------------------------- */
+const markGroup = (shell, accent, extra = "") => {
+  const paint = (r) => (r === "shell" ? shell : accent);
+  const paths = MARK_LAYERS.map(
+    (l) =>
+      `    <path d="${l.d}" fill="${paint(l.role)}"${l.transform ? ` transform="${l.transform}"` : ""}/>`,
+  ).join("\n");
+  return `  <g${extra}>\n${paths}\n  </g>`;
+};
 
 const MARK = 64;
 const WORD_H = 44;
@@ -119,40 +154,39 @@ ${markGroup(INK, TEAL)}
 `,
 );
 
-const horizontal = (ink, word, heart) =>
+const horizontal = (shell, accent, word) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${TOTAL_W} ${TOTAL_H}" width="${TOTAL_W}" height="${TOTAL_H}" role="img" aria-label="Barber Stucco">
-${markGroup(ink, heart, ` transform="translate(0 ${markY})"`)}
+${markGroup(shell, accent, ` transform="translate(0 ${markY})"`)}
   <g transform="translate(${MARK + GAP} ${wordY}) scale(${ws.toFixed(5)})" fill="${word}">
     <g transform="${w.transform}"><path d="${w.d}"/></g>
   </g>
 </svg>
 `;
 
-write("public/brand/logo-horizontal.svg", horizontal(INK, INK, TEAL));
+write("public/brand/logo-horizontal.svg", horizontal(INK, TEAL, INK));
 write(
   "public/brand/logo-horizontal-inverse.svg",
-  horizontal("#FFFFFF", "#FFFFFF", TEAL_BRIGHT),
+  horizontal("#FFFFFF", TEAL_BRIGHT, "#FFFFFF"),
 );
 
-write(
-  "public/brand/favicon.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+const faviconBody = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="14" fill="#F7FBFC"/>
-  <g transform="translate(32 32) scale(0.84) translate(-32 -32)">
+  <g transform="translate(32 33) scale(0.86) translate(-32 -32)">
 ${markGroup(INK, TEAL)}
   </g>
 </svg>
-`,
-);
+`;
+write("public/brand/favicon.svg", faviconBody);
+write("app/icon.svg", faviconBody);
 
 write(
   "components/brand-paths.ts",
   `// GENERATED by scripts/build-brand.mjs — do not hand-edit.
-// Wordmark outlines converted from Great Vibes (SIL Open Font License 1.1).
-export const HOUSE_PATH = ${JSON.stringify(HOUSE)};
-export const ARCH_PATH = ${JSON.stringify(ARCH)};
-export const HEART_PATH = ${JSON.stringify(HEART)};
-export const HEART_TRANSFORM = ${JSON.stringify(HEART_T)};
+// Mark geometry + wordmark outlines (Great Vibes, SIL Open Font License 1.1).
+export type MarkLayer = { role: "shell" | "accent"; d: string; transform?: string };
+
+export const MARK_LAYERS: MarkLayer[] = ${JSON.stringify(MARK_LAYERS, null, 2)};
+
 export const WORDMARK_PATH = ${JSON.stringify(w.d)};
 export const WORDMARK_TRANSFORM = ${JSON.stringify(w.transform)};
 export const WORDMARK_WIDTH = ${w.width};

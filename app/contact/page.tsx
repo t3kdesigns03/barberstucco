@@ -18,7 +18,7 @@ export default function ContactPage() {
   return (
     <>
       <section className="container-page pb-4 pt-14 md:pt-20">
-        <p className="eyebrow">Contact</p>
+        <p className="eyebrow eyebrow-tick">Contact</p>
         <h1 className="mt-3 max-w-3xl font-display text-[2.6rem] leading-[1.05] tracking-tightest sm:text-6xl">
           Tell us about the building.
         </h1>
@@ -56,7 +56,7 @@ export default function ContactPage() {
                 <dd className="mt-2">
                   <a
                     href={BUSINESS.phoneHref}
-                    className="font-display text-3xl tracking-tight text-ink transition-colors hover:text-teal-deep sm:text-4xl"
+                    className="inline-block py-1 font-display text-3xl tracking-tight text-ink transition-colors hover:text-teal-deep sm:text-4xl"
                   >
                     {BUSINESS.phoneDisplay}
                   </a>
@@ -122,7 +122,7 @@ export default function ContactPage() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="-my-2 inline-block py-2 text-sm font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4 hover:text-ink"
+            className="-my-2 inline-flex min-h-[44px] items-center py-2 text-sm font-semibold text-teal-deep underline decoration-teal-bright decoration-2 underline-offset-4 hover:text-ink"
           >
             Get directions
           </a>

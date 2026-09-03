@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Button from "@/components/Button";
 import Photo from "@/components/Photo";
+import Reveal from "@/components/Reveal";
 import { BUSINESS, SERVICES } from "@/src/data/business";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function ServicesPage() {
   return (
     <>
       <section className="container-page pb-10 pt-14 md:pt-20">
-        <p className="eyebrow">Services</p>
+        <p className="eyebrow eyebrow-tick">Services</p>
         <h1 className="mt-3 max-w-3xl font-display text-[2.6rem] leading-[1.05] tracking-tightest sm:text-6xl">
           Five systems, and the reasons they fail when they fail.
         </h1>
@@ -47,7 +48,7 @@ export default function ServicesPage() {
             className={`scroll-mt-28 ${i % 2 === 1 ? "bg-white" : ""}`}
           >
             <div className="container-page py-16 md:py-24">
-              <div
+              <Reveal
                 className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
                   i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
@@ -129,13 +130,13 @@ export default function ServicesPage() {
                     </p>
                   )}
                 </div>
-              </div>
+              </Reveal>
             </div>
           </section>
         ))}
       </div>
 
-      <section className="dark-band bg-ink text-white">
+      <section className="dark-band stucco-dark bg-ink text-white">
         <div className="rule-glow" aria-hidden="true" />
         <div className="container-page flex flex-col gap-8 py-16 md:flex-row md:items-center md:justify-between md:py-20">
           <div>

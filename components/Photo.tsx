@@ -10,6 +10,7 @@ type Props = {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  objectPosition?: string;
 };
 
 /**
@@ -26,6 +27,7 @@ export default function Photo({
   className = "",
   sizes,
   priority = false,
+  objectPosition,
 }: Props) {
   const ref = useRef<HTMLImageElement>(null);
   const [failed, setFailed] = useState(false);
@@ -46,7 +48,7 @@ export default function Photo({
         role="img"
         aria-label={alt}
         className={`photo-fallback ${className}`}
-        style={{ aspectRatio: `${width} / ${height}` }}
+        style={{ aspectRatio: `${width} / ${height}`, backgroundPosition: objectPosition }}
       />
     );
   }
@@ -65,6 +67,7 @@ export default function Photo({
       onLoad={() => setFailed(false)}
       onError={() => setFailed(true)}
       className={className}
+      style={objectPosition ? { objectPosition } : undefined}
     />
   );
 }

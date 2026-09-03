@@ -81,6 +81,7 @@ export default function GalleryGrid() {
                 width={800}
                 height={600}
                 sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 92vw"
+                objectPosition={img.objectPosition}
                 className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent p-4 pt-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">

@@ -6,7 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="dark-band bg-ink text-white/75">
+    <footer className="dark-band stucco-dark bg-ink text-white/75">
       <div className="rule-glow" aria-hidden="true" />
       <div className="container-page py-14 md:py-16">
         <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -33,13 +33,13 @@ export default function Footer() {
             <address className="mt-4 flex flex-col items-start gap-3 not-italic leading-relaxed">
               <a
                 href={BUSINESS.phoneHref}
-                className="block w-fit py-1 text-xl font-semibold text-white transition-colors hover:text-teal-bright"
+                className="block w-fit py-2 text-xl font-semibold text-white transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.phoneDisplay}
               </a>
               <a
                 href={BUSINESS.emailHref}
-                className="block w-fit max-w-full break-all py-1 text-white/85 transition-colors hover:text-teal-bright"
+                className="block w-fit max-w-full break-all py-2.5 text-white/85 transition-colors hover:text-teal-bright"
               >
                 {BUSINESS.email}
               </a>
